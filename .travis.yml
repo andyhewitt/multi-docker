@@ -9,15 +9,15 @@ script:
   - docker run -e CI=true andyhewitt/react-test npm test
 
 after_success:
-  - docker build -t andyhewtt/multi-client ./client
-  - docker build -t andyhewtt/multi-nginx ./nginx
-  - docker build -t andyhewtt/multi-server ./server
-  - docker build -t andyhewtt/multi-worker ./worker
+  - docker build -t andyhewitt/multi-client ./client
+  - docker build -t andyhewitt/multi-nginx ./nginx
+  - docker build -t andyhewitt/multi-server ./server
+  - docker build -t andyhewitt/multi-worker ./worker
   # Login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push the built images
-  - docker push andyhewtt/multi-client
-  - docker push andyhewtt/multi-nginx
-  - docker push andyhewtt/multi-server
-  - docker push andyhewtt/multi-worker
+  - docker push andyhewitt/multi-client
+  - docker push andyhewitt/multi-nginx
+  - docker push andyhewitt/multi-server
+  - docker push andyhewitt/multi-worker
 
