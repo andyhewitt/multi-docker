@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t andyhewitt/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true andyhewitt/react-test npm test
+
+after_success:
+  - docker build -t andyhewtt/multi-client ./client
+  - docker build -t andyhewtt/multi-nginx ./nginx
+  - docker build -t andyhewtt/multi-server ./server
+  - docker build -t andyhewtt/multi-worker ./worker
+  # Login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push the built images
+  - docker push andyhewtt/multi-client
+  - docker push andyhewtt/multi-nginx
+  - docker push andyhewtt/multi-server
+  - docker push andyhewtt/multi-worker
+
